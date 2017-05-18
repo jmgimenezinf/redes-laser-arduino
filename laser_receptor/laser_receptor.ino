@@ -6,20 +6,19 @@ int cont_hight;
 BH1750 lightMeter;
 int pin_laser=4;
 int tiempo_espera;
-int time_max;
-
+const int time_max=2000;
+int msj_recibido[256];
 void setup() {
   Serial.begin(9600);
   lightMeter.begin();
   Serial.println(F("LASER RECEPTOR"));
-  time_max=2000;
 }
 void loop() {
   //  uint16_t lux = lightMeter.readLightLevel();
 
     Serial.println("Esperando senial emisora:");
     esperarEnvio();
-    contarLuz();
+    recibirDatos();
     
 }
 
@@ -40,8 +39,13 @@ void esperarEnvio(){
   Serial.println("Comienza transmision");
 }
 
-void contarLuz(){
-  while (true) {
+
+void recibirDatos(){
+  int i = 0;
+  int cont_hight =0;
+  int cont_low = 0;
+  
+  while (cont_hight<time_max) {
     uint16_t lux = lightMeter.readLightLevel();
     cont_hight=0;
     cont_low=0;
@@ -55,6 +59,14 @@ void contarLuz(){
         }
           Serial.print("Cantidad de Unos:");
           Serial.println(cont_hight);
+          i++;
+          if (i<254){
+                msj_recibido[i]=cont_hight;
+                Serial.print("vector ");
+                Serial.print(i);
+                Serial.print(" ");
+                Serial.println(msj_recibido[i]);
+          } 
     }else {
         cont_low=cont_low + 1;
        // Serial.println(lux);
@@ -66,6 +78,14 @@ void contarLuz(){
         }
         Serial.print("Cantidad de Ceros:");
         Serial.println(cont_low);
+        i++;
+        if (i<254){
+          msj_recibido[i]=cont_low;  
+          Serial.print("vector ");
+          Serial.print(i);
+          Serial.print(" ");
+          Serial.println(msj_recibido[i]);
+        } 
       }
     }
 }

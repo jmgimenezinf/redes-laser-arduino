@@ -9,11 +9,20 @@ void setup() {
 }
 
 void loop() {
+signal_envio();
+morse.Write("i");
+signal_end_transmission();
 
-//Serial.println("Se envio mensaje");
+
+}
+void signal_envio(){
 digitalWrite(2,1);
-delay(5000);
-morse.Write("0");
+delay(3000);
 digitalWrite(2,0);
-delay(5000);
+}
+void signal_end_transmission(){
+digitalWrite(2,1);
+delay(3000);
+digitalWrite(2,0);
+delay(3000);
 }
