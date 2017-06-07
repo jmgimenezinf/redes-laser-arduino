@@ -1,4 +1,6 @@
 #include <Morse.h>
+#include <Wire.h>
+#include <BH1750.h>
 Morse morse(2);
 
 String mensaje="0";
@@ -10,19 +12,19 @@ void setup() {
 
 void loop() {
 signal_envio();
-morse.Write("i");
+morse.Write("melo");
 signal_end_transmission();
 
 
 }
 void signal_envio(){
 digitalWrite(2,1);
-delay(3000);
-digitalWrite(2,0);
+delay(5000);
+//digitalWrite(2,0);
 }
 void signal_end_transmission(){
-digitalWrite(2,1);
-delay(3000);
 digitalWrite(2,0);
-delay(3000);
+delay(5000);
+//digitalWrite(2,1);
+//delay(3000);
 }
