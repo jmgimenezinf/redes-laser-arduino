@@ -9,16 +9,16 @@ Morse::Morse(int pin)
 }
 void Morse::dot()
 {
-	digitalWrite(_pin, HIGH);
-	delay(250);
 	digitalWrite(_pin, LOW);
+	delay(250);
+	digitalWrite(_pin, HIGH);
 	delay(250);
 }
 void Morse::dash()
 {
-	digitalWrite(_pin, HIGH);
-	delay(750);
 	digitalWrite(_pin, LOW);
+	delay(750);
+	digitalWrite(_pin, HIGH);
 	delay(250);
 }
 void Morse::Write(String message)
@@ -30,10 +30,12 @@ void Morse::Write(String message)
 	for (int n = 0; n <= length; n++) {
 		letter = message.charAt(n);
 		toMorse(letter);
-		digitalWrite(_pin, HIGH);
-		delay(2000);
-		digitalWrite(_pin, LOW);
-		delay(2000);
+		digitalWrite(_pin,LOW);
+		delay(3000);
+		digitalWrite(_pin,HIGH);
+		delay(3000);
+		//  digitalWrite(_pin, HIGH);
+		//  delay(5);
 	}
 }
 void Morse::toMorse(char letter)
